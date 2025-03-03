@@ -1,0 +1,59 @@
+const {test} = require('@playwright/test')
+const {expect} = require('@playwright/test')
+
+test('First Playwright test', async ({browser}) => {
+
+    //storing username
+    
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    console.log(await page.title());
+
+    const userName = page.locator('#username');
+    const userPassword = page.locator("[type = 'password']");
+    const signIn = page.locator('#signInBtn');
+    const cardTitle = page.locator(".card-body a");
+
+    await userName.fill('rahulshetty');
+    await userPassword.fill('learning');
+    await signIn.click();
+    console.log(await page.locator("[style *='block']").textContent());
+    await expect(page.locator("[style *='block']")).toContainText("Incorrect username/password.");
+
+    await userName.fill("");
+    await userName.fill("rahulshettyacademy");
+    //await userName.fill('rahulshetty');
+    await page.locator('select.form-control').click();
+
+    await page.waitForTimeout(3000);
+    await signIn.click();
+    await page.waitForTimeout(3000);
+
+
+    //all the 4 content in the home page
+    //await page.locator(".card-body a").first(). textContent();
+    //console.log(await cardTitle.first().textContent());
+    //console.log(await cardTitle.nth(1).textContent());
+    // console.log(cardTitle.nth(2). textContent());
+    // console.log(cardTitle.nth(3). textContent());
+
+    //One way to load all the products using networkidle mode
+    //await page.waitForLoadState('networkidle');
+    //another way to load all the products using wait for
+    await cardTitle.first().waitFor();
+    const allTitles = await cardTitle.allTextContents();
+    console.log(allTitles);
+
+});
+
+test.only('UI Control', async({page})=>{
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    await page.locator('#username').fill('rahulshettyacamedy');
+    await page.locator("[name ='password']").fill('learning');
+    const dropdown = await page.locator("select.form-control");
+    await dropdown.selectOption("consult");
+
+   
+
+})
