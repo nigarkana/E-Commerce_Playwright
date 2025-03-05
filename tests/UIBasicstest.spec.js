@@ -67,7 +67,7 @@ test.only('UI Control', async({page})=>{
 
 
 
-    await page.pause();//Playwright inspector will open
+    //await page.pause();//Playwright inspector will open
 
    
 
