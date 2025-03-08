@@ -47,7 +47,7 @@ test('First Playwright test', async ({browser}) => {
 
 });
 
-test.only('UI Control', async({page})=>{
+test ('UI Control', async({page})=>{
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     await page.locator('#username').fill('rahulshettyacamedy');
     await page.locator("[name ='password']").fill('learning');
@@ -69,6 +69,23 @@ test.only('UI Control', async({page})=>{
 
     //await page.pause();//Playwright inspector will open
 
-   
+})
+
+test.only ("Child window handling", async({browser})=>{
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    const documentLink =  await page.locator("[href *='documents-request']");
+
+    const [newPage] = await Promise.all([
+        context.waitForEvent('page'),
+        documentLink.click(),
+    ]);
+
+    const text = await newPage.locator(".red").textContent();
+    console.log(text);
+
+
 
 })
+
