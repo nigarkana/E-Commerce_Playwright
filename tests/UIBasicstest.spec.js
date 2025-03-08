@@ -64,12 +64,8 @@ test ('UI Control', async({page})=>{
     //test the blinking sentence
     const documentLink = await page.locator("[href*='documents-request']");
     await expect(documentLink).toHaveAttribute("class","blinkingText");
-
-
-
     //await page.pause();//Playwright inspector will open
-
-})
+});
 
 test.only ("Child window handling", async({browser})=>{
     const context = await browser.newContext();
@@ -84,8 +80,4 @@ test.only ("Child window handling", async({browser})=>{
 
     const text = await newPage.locator(".red").textContent();
     console.log(text);
-
-
-
-})
-
+});
