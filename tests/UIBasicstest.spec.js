@@ -83,5 +83,12 @@ test.only ("Child window handling", async({browser})=>{
     ]);
 
     const text = await newPage.locator(".red").textContent();
-    console.log(text);
+    //array split and select the desire string
+    const arrayText = text.split("@");
+    const domain = arrayText[1].split(" ")[0]
+    console.log(domain);
+    //paste the domain name in the parent windown username field
+    await page.locator("#username").fill(domain);
+    //await page.pause();
+    console.log(await page.locator("#username").textContent());
 });
