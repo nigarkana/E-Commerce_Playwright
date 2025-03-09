@@ -44,7 +44,6 @@ test('First Playwright test', async ({browser}) => {
     await cardTitle.first().waitFor();
     const allTitles = await cardTitle.allTextContents();
     console.log(allTitles);
-
 });
 
 test ('UI Control', async({page})=>{
@@ -62,6 +61,14 @@ test ('UI Control', async({page})=>{
     const dropdown = await page.locator("select.form-control");
     await dropdown.selectOption("consult");
 
+    await page.locator("#terms").click();
+    await expect(page.locator("#terms")).toBeChecked();
+    await page.locator("#terms").uncheck();
+    expect(await page.locator("#terms").isChecked()).toBeFalsy();
+    //test the blinking sentence
+    const documentLink = await page.locator("[href*='documents-request']");
+    await expect(documentLink).toHaveAttribute("class","blinkingText");
+    //await page.pause();//Playwright inspector will open
 })
 
 test.only ("Child window handling", async({browser})=>{
