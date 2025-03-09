@@ -44,7 +44,6 @@ test('First Playwright test', async ({browser}) => {
     await cardTitle.first().waitFor();
     const allTitles = await cardTitle.allTextContents();
     console.log(allTitles);
-
 });
 
 test ('UI Control', async({page})=>{
@@ -55,8 +54,13 @@ test ('UI Control', async({page})=>{
     console.log(page.locator(".radiotextsty").last().isChecked());
     await expect(page.locator(".radiotextsty").last()).toBeChecked();
     await page.locator("#okayBtn").click();
+    await page.locator(".radiotextsty").last().click();
+    console.log(page.locator(".radiotextsty").last().isChecked());
+    await expect(page.locator(".radiotextsty").last()).toBeChecked();
+    await page.locator("#okayBtn").click();
     const dropdown = await page.locator("select.form-control");
     await dropdown.selectOption("consult");
+
     await page.locator("#terms").click();
     await expect(page.locator("#terms")).toBeChecked();
     await page.locator("#terms").uncheck();
@@ -64,11 +68,7 @@ test ('UI Control', async({page})=>{
     //test the blinking sentence
     const documentLink = await page.locator("[href*='documents-request']");
     await expect(documentLink).toHaveAttribute("class","blinkingText");
-
-
-
     //await page.pause();//Playwright inspector will open
-
 })
 
 test.only ("Child window handling", async({browser})=>{
@@ -84,8 +84,4 @@ test.only ("Child window handling", async({browser})=>{
 
     const text = await newPage.locator(".red").textContent();
     console.log(text);
-
-
-
-})
-
+});
