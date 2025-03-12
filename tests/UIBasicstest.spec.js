@@ -46,14 +46,10 @@ test('First Playwright test', async ({browser}) => {
     console.log(allTitles);
 });
 
-test ('UI Control', async({page})=>{
+test.only ('UI Control', async({page})=>{
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     await page.locator('#username').fill('rahulshettyacamedy');
     await page.locator("[name ='password']").fill('learning');
-    await page.locator(".radiotextsty").last().click();
-    console.log(page.locator(".radiotextsty").last().isChecked());
-    await expect(page.locator(".radiotextsty").last()).toBeChecked();
-    await page.locator("#okayBtn").click();
     await page.locator(".radiotextsty").last().click();
     console.log(page.locator(".radiotextsty").last().isChecked());
     await expect(page.locator(".radiotextsty").last()).toBeChecked();
@@ -71,7 +67,7 @@ test ('UI Control', async({page})=>{
     //await page.pause();//Playwright inspector will open
 })
 
-test.only ("Child window handling", async({browser})=>{
+test ("Child window handling", async({browser})=>{
     const context = await browser.newContext();
     const page = await context.newPage();
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");

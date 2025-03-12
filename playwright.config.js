@@ -1,7 +1,12 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { trace } from 'console';
 
 
+export default defineConfig({
+  // Limit the number of workers on CI, use default locally
+  workers: process.env.CI ? 2 : undefined,
+});
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -18,7 +23,8 @@ const config = ({
 
   use: {
     browserName : 'chromium',
-    headless : true
+    headless : true,
+    trace: 'on',
    
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
